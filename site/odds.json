@@ -1,0 +1,69 @@
+{
+ "updated": "2026-11-02T18:10+00:00",
+ "matches": [
+  {
+   "a": "Top Esports",
+   "b": "Invictus Gaming",
+   "pa": 0.465,
+   "source": "Polymarket",
+   "title": "LoL: Top Esports vs Invictus Gaming (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-tes-ig1-2026-11-06"
+  },
+  {
+   "a": "Karmine Corp",
+   "b": "T1",
+   "pa": 0.185,
+   "source": "Polymarket",
+   "title": "LoL: Karmine Corp vs T1 (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-kc-t1-2026-11-04"
+  },
+  {
+   "a": "Gen.G",
+   "b": "LYON (2024 American Team)",
+   "pa": 0.915,
+   "source": "Polymarket",
+   "title": "LoL: Gen.G vs LYON (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-gen-ly-2026-11-05"
+  },
+  {
+   "a": "Dplus Kia",
+   "b": "Bilibili Gaming",
+   "pa": 0.415,
+   "source": "Polymarket",
+   "title": "LoL: Dplus KIA vs Bilibili Gaming (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-dk-blg-2026-11-03"
+  },
+  {
+   "a": "Invictus Gaming",
+   "b": "Top Esports",
+   "pa": 0.5404,
+   "source": "Kalshi",
+   "title": "Invictus Gaming vs. Top Esports",
+   "url": "https://kalshi.com/markets/kxlolgame"
+  },
+  {
+   "a": "LYON (2024 American Team)",
+   "b": "Gen.G",
+   "pa": 0.085,
+   "source": "Kalshi",
+   "title": "LYON vs. Gen.G",
+   "url": "https://kalshi.com/markets/kxlolgame"
+  },
+  {
+   "a": "Bilibili Gaming",
+   "b": "Dplus Kia",
+   "pa": 0.5891,
+   "source": "Kalshi",
+   "title": "Bilibili Gaming vs. Dplus KIA",
+   "url": "https://kalshi.com/markets/kxlolgame"
+  },
+  {
+   "a": "T1",
+   "b": "Karmine Corp",
+   "pa": 0.825,
+   "source": "Kalshi",
+   "title": "T1 vs. Karmine Corp",
+   "url": "https://kalshi.com/markets/kxlolgame"
+  }
+ ]
+}

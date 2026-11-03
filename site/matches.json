@@ -1,0 +1,54 @@
+{
+ "updated": "2026-10-31",
+ "shrink": 0.84,
+ "matches": [
+  {
+   "stage": "Čtvrtfinále",
+   "a": "Dplus Kia",
+   "b": "Bilibili Gaming",
+   "bo": 5,
+   "utc": "2026-11-05T22:00:00Z",
+   "time": "5. 11. 23:00",
+   "s1": "",
+   "s2": "",
+   "winner": null,
+   "p": 0.4666
+  },
+  {
+   "stage": "Čtvrtfinále",
+   "a": "Karmine Corp",
+   "b": "T1",
+   "bo": 5,
+   "utc": "2026-11-06T22:00:00Z",
+   "time": "6. 11. 23:00",
+   "s1": "",
+   "s2": "",
+   "winner": null,
+   "p": 0.2137
+  },
+  {
+   "stage": "Čtvrtfinále",
+   "a": "Gen.G",
+   "b": "LYON (2024 American Team)",
+   "bo": 5,
+   "utc": "2026-11-04T22:00:00Z",
+   "time": "4. 11. 23:00",
+   "s1": "",
+   "s2": "",
+   "winner": null,
+   "p": 0.8771
+  },
+  {
+   "stage": "Čtvrtfinále",
+   "a": "Top Esports",
+   "b": "Invictus Gaming",
+   "bo": 5,
+   "utc": "2026-11-03T22:00:00Z",
+   "time": "3. 11. 23:00",
+   "s1": "",
+   "s2": "",
+   "winner": null,
+   "p": 0.5305
+  }
+ ]
+}
