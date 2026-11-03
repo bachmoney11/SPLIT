@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-03T21:20+00:00",
+ "updated": "2026-11-03T23:17+00:00",
  "matches": [
   {
    "a": "Top Esports",
    "b": "Invictus Gaming",
-   "pa": 0.445,
+   "pa": 0.235,
    "source": "Polymarket",
    "title": "LoL: Top Esports vs Invictus Gaming (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-tes-ig1-2026-11-06"
@@ -12,7 +12,7 @@
   {
    "a": "Gen.G",
    "b": "LYON (2024 American Team)",
-   "pa": 0.915,
+   "pa": 0.905,
    "source": "Polymarket",
    "title": "LoL: Gen.G vs LYON (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-gen-ly-2026-11-05"
@@ -36,7 +36,7 @@
   {
    "a": "Invictus Gaming",
    "b": "Top Esports",
-   "pa": 0.555,
+   "pa": 0.795,
    "source": "Kalshi",
    "title": "Invictus Gaming vs. Top Esports",
    "url": "https://kalshi.com/markets/kxlolgame"
@@ -44,7 +44,7 @@
   {
    "a": "LYON (2024 American Team)",
    "b": "Gen.G",
-   "pa": 0.0941,
+   "pa": 0.095,
    "source": "Kalshi",
    "title": "LYON vs. Gen.G",
    "url": "https://kalshi.com/markets/kxlolgame"
