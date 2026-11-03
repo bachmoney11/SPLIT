@@ -565,6 +565,7 @@ details.ig-man[open]>summary{margin-bottom:10px}
     <button class="btn primary" id="au-on" type="button">Zapnout živý draft</button></div>
   <section class="panel" id="draft">
     <div class="panel-h"><h2 id="d-title">Draft</h2><span class="sub" id="ld-patch"></span></div>
+    <p class="finding" id="d-series"></p>
     <p class="au-st" id="au-status">Zapni živý draft a picky i stav hry se doplní samy. Nebo klikej na tipy ručně.</p>
     <div class="games" id="au-games"></div>
     <div><div class="rail" id="l-rail" aria-label="Průběh draftu po krocích"></div><div class="rail-l" id="l-rail-l"><span>1. bany</span><span>1. picky</span><span>2. bany</span><span>2. picky</span></div></div>
@@ -1597,16 +1598,33 @@ renderToday(); runSim(); calc(); renderFL(); liveUpdate(); startOdds(); route();
 (() => {
   const KEY = '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z';   // veřejný klíč webu lolesports.com, není to tajemství
   const API = 'https://esports-api.lolesports.com/persisted/gw/', FEED = 'https://feed.lolesports.com/livestats/v1/';
-  const LEAGUE = 'worlds', TICK = 10000, FIND_EVERY = 60000, LAG = 75000, BACK = 30000, RETRY = 3;
+  const LEAGUE = 'worlds', TICK = window.__STANDALONE__ ? 10000 : 15000, FIND_EVERY = 60000, LAG = 75000, BACK = 30000, RETRY = 3;
   const ROLE = { top: 0, jungle: 1, mid: 2, bottom: 3, support: 4 };
   const FIX = { MonkeyKing: 'Wukong', Nunu: 'Nunu & Willump', Renata: 'Renata Glasc', Kaisa: "Kai'Sa", KSante: "K'Sante", Belveth: "Bel'Veth", Chogath: "Cho'Gath", Khazix: "Kha'Zix", Velkoz: "Vel'Koz", Kogmaw: "Kog'Maw", Reksai: "Rek'Sai" };
   const qs = new URLSearchParams(location.search), REPLAY = qs.get('replay'), REPLAY_MIN = +(qs.get('min') || 15);
   const LF = { timer: null, game: null, lastFind: 0, busy: false, replayT: null };
+  const SA = !!window.__STANDALONE__;            // GitHub verze = přímý fetch; v Claude jde všechno přes vestavěný prohlížeč
+  const PROBE = 'https://bachmoney11.github.io/SPLIT/?probe=1';   // GitHub stránka v režimu probe vypíše běžící hru jako JSON
+  const BT = { tab: null };
+  async function browserText(url, wait) {        // Claude: otevřít URL ve vestavěném prohlížeči a vrátit text stránky
+    const mcp = await cu('mcp'); if (!mcp) throw { code: 'not_granted' };
+    if (!BT.tab) { const r = await mcp.callTool('host:claude_browser', 'preview_start', { url }); const m = JSON.stringify(r.payload ?? r.content).match(/tabId ([\w-]+)/); BT.tab = m ? m[1] : null; }
+    else await mcp.callTool('host:claude_browser', 'navigate', { url, tabId: BT.tab });
+    for (let k = 0; k < (wait || 1); k++) {
+      if (k) await new Promise(r => setTimeout(r, 1500));
+      const r = await mcp.callTool('host:claude_browser', 'get_page_text', BT.tab ? { tabId: BT.tab, max_chars: 400000 } : { max_chars: 400000 });
+      const t = (typeof r.payload === 'string' ? r.payload : (r.content || []).map(c => c.text || '').join('\n')).split('\n\nTab Context')[0];
+      const i = t.indexOf('{'), j = t.lastIndexOf('}');
+      if (i >= 0 && j > i) { try { return JSON.parse(t.slice(i, j + 1)); } catch (e) {} }
+    }
+    return null;
+  }
   const api = p => fetch(API + p + (p.includes('?') ? '&' : '?') + 'hl=en-US', { headers: { 'x-api-key': KEY }, cache: 'no-store' })
     .then(r => { if (!r.ok) throw { code: 'api ' + r.status }; return r.json(); });
   // 200 -> JSON, 400 -> 400 (čas je moc čerstvý), jinak null
-  const feed = (kind, gid, t) => fetch(FEED + kind + '/' + gid + (t ? '?startingTime=' + t : ''), { cache: 'no-store' })
-    .then(r => r.status === 200 ? r.json() : r.status === 400 ? 400 : null);
+  const feed = (kind, gid, t) => { const url = FEED + kind + '/' + gid + (t ? '?startingTime=' + t : '');
+    if (!SA) return browserText(url).then(j => j && j.frames ? j : 400);   // chybová stránka feedu (400) nemá JSON se snímky
+    return fetch(url, { cache: 'no-store' }).then(r => r.status === 200 ? r.json() : r.status === 400 ? 400 : null); };
   const iso10 = ms => { const d = new Date(ms); d.setUTCMilliseconds(0); d.setUTCSeconds(Math.floor(d.getUTCSeconds() / 10) * 10); return d.toISOString(); };
   // při 400 zkusit o 30 s starší čas, nejvýš 3×; vrací {w, t} nebo null
   async function feedAt(kind, gid, t) {
@@ -1623,14 +1641,16 @@ renderToday(); runSim(); calc(); renderFL(); liveUpdate(); startOdds(); route();
   // najde rozehranou hru Worlds -> {gid, n, blue, red, codes} (týmy jako id stránky, codes = zkratky z lolesports)
   async function findGame() {
     if (REPLAY) return LF.game || { gid: REPLAY, n: 1, blue: null, red: null, codes: {}, replay: true };
+    if (!SA) { const j = await browserText(PROBE + '&_=' + Date.now(), 8); if (!j || !j.probe) throw { code: 'probe' }; return j.none ? null : j; }
     const live = await api('getLive'); const ev = (live.data.schedule.events || []).find(e => e.league && e.league.slug === LEAGUE && e.state === 'inProgress');
     if (!ev) return null;
     const det = await api('getEventDetails?id=' + ev.id), m = det.data.event.match, code = {};
     m.teams.forEach(t => code[t.id] = t.code);
-    const g = m.games.find(x => x.state === 'inProgress') || null; if (!g) return { gid: null, waiting: m.games.filter(x => x.state === 'completed').length + 1, teams: m.teams.map(t => t.code) };
+    const wins = m.teams.map(t => t.code + ' ' + ((t.result && t.result.gameWins) || 0)).join(' : ');   // skóre série z lolesports
+    const g = m.games.find(x => x.state === 'inProgress') || null; if (!g) return { gid: null, waiting: m.games.filter(x => x.state === 'completed').length + 1, teams: m.teams.map(t => t.code), wins };
     const sc = s => code[(g.teams.find(t => t.side === s) || {}).id] || null;
     const tid = c => { const id = teamId(c); return known(id) ? id : null; };   // tým mimo data stránky -> nechat výběr, jak je
-    return { gid: g.id, n: g.number, blue: tid(sc('blue')), red: tid(sc('red')), codes: { blue: sc('blue'), red: sc('red') } };
+    return { gid: g.id, n: g.number, blue: tid(sc('blue')), red: tid(sc('red')), codes: { blue: sc('blue'), red: sc('red') }, wins };
   }
 
   // picky z metadat hry; bany a pořadí kroků z toho, co už načetla Leaguepedia
@@ -1686,12 +1706,13 @@ renderToday(); runSim(); calc(); renderFL(); liveUpdate(); startOdds(); route();
       if (!LF.game || !LF.game.gid || Date.now() - LF.lastFind > FIND_EVERY) {
         LF.lastFind = Date.now(); const g = await findGame();
         if (!g) { LF.game = null; note('Živá data lolesports: teď se žádný zápas Worlds nehraje. Draft a výsledky dál z Leaguepedie.'); return; }
-        if (!g.gid) { LF.game = null; note(`Živá data lolesports: ${g.teams.join(' – ')} · čeká se na hru ${g.waiting} (champion select). Picky naskočí při načtení hry.`); return; }
+        if (!g.gid) { LF.game = null; note(`Série ${g.wins} · ${LF.last ? LF.last + ' · ' : ''}čeká se na hru ${g.waiting}. Picky naskočí, jakmile hra začne (feed nemá champion select).`); return; }
         if (!LF.game || LF.game.gid !== g.gid) LF.game = { ...g, t0: null, meta: null, md: null, bar: {}, barAt: null };
+        LF.game.wins = g.wins;
       }
       const G = LF.game;
       if (!G.t0) {   // první okno hry: start a šampioni
-        const w = await feed('window', G.gid); if (!w || w === 400 || !w.frames || !w.frames.length) { note('Živá data lolesports: hra se načítá…'); return; }
+        const w = await feed('window', G.gid); if (!w || w === 400 || !w.frames || !w.frames.length) { note(`Série ${G.wins || ''} · ${LF.last ? LF.last + ' · ' : ''}hra ${G.n}: champion select / čeká se na start. Picky a scoreboard naskočí se startem hry (~1,5 min zpoždění).`); return; }
         G.t0 = new Date(w.frames[0].rfc460Timestamp).getTime();
         const md = w.gameMetadata, mp = t => t.participantMetadata.map(p => ({ c: ch(p.championId), r: ROLE[p.role] ?? null }));
         G.md = md; G.meta = { blue: mp(md.blueTeamMetadata), red: mp(md.redTeamMetadata) }; G.patch = md.patchVersion;
@@ -1707,8 +1728,10 @@ renderToday(); runSim(); calc(); renderFL(); liveUpdate(); startOdds(); route();
       scoreboard(G, f, df, min);
       const st = f.gameState === 'finished' ? 'hra skončila' : f.gameState === 'paused' ? 'pauza' : `${Math.floor(min)}. minuta`;
       const teams = known(G.blue) && known(G.red) ? T[G.blue].short + ' – ' + T[G.red].short : G.codes.blue ? G.codes.blue + ' – ' + G.codes.red : '';
-      note(`Živá data lolesports · ${teams ? teams + ' · ' : ''}hra ${G.n} · ${st} · ${new Date().toLocaleTimeString('cs-CZ')} (zpoždění ~${Math.round((Date.now() - ws.t) / 60000 * 2) / 2 || 1} min)`);
-      if (f.gameState === 'finished') { LF.game = null; LF.lastFind = Date.now(); }
+      note(`Živá data lolesports · ${G.wins ? 'série ' + G.wins + ' · ' : ''}${teams ? teams + ' · ' : ''}hra ${G.n} · ${st} · ${new Date().toLocaleTimeString('cs-CZ')} (zpoždění ~${Math.round((Date.now() - ws.t) / 60000 * 2) / 2 || 1} min)`);
+      if (f.gameState === 'finished') {   // poslední scoreboard nechat viditelný, vítěz podle zničeného Nexu = víc zlata/inhibitorů není jisté -> skóre série z API při dalším hledání
+        LF.last = `hra ${G.n} skončila (${teams || 'konečný stav nahoře'}, killy ${f.blueTeam.totalKills}:${f.redTeam.totalKills})`;
+        LF.game = null; LF.lastFind = 0; }
     } catch (e) { console.warn('live_feed', e); note('Živá data lolesports se nepodařilo načíst (' + ((e && e.code) || 'síť') + '), zkusím znovu.'); }
     finally { LF.busy = false; }
   }
@@ -1716,6 +1739,8 @@ renderToday(); runSim(); calc(); renderFL(); liveUpdate(); startOdds(); route();
   window.bcPoll = async () => { if (LF.timer) return; tick();
     LF.timer = setInterval(() => { if (!BC.timer) { clearInterval(LF.timer); LF.timer = null; return; } tick(); }, TICK); };
   if (REPLAY) setTimeout(() => $('au-on').click(), 500);
+  if (SA && qs.get('probe')) findGame().then(g => { document.body.innerText = JSON.stringify(Object.assign({ probe: 1 }, g || { none: 1 })); })
+    .catch(e => { document.body.innerText = JSON.stringify({ probe: 1, error: (e && e.code) || 'síť' }); });
 })();
 
 </script>
