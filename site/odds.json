@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T13:00+00:00",
+ "updated": "2026-11-03T15:18+00:00",
  "matches": [
   {
    "a": "Top Esports",
@@ -8,14 +8,6 @@
    "source": "Polymarket",
    "title": "LoL: Top Esports vs Invictus Gaming (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-tes-ig1-2026-11-06"
-  },
-  {
-   "a": "Karmine Corp",
-   "b": "T1",
-   "pa": 0.185,
-   "source": "Polymarket",
-   "title": "LoL: Karmine Corp vs T1 (BO5) - Worlds Playoffs",
-   "url": "https://polymarket.com/event/lol-kc-t1-2026-11-04"
   },
   {
    "a": "Gen.G",
@@ -32,6 +24,14 @@
    "source": "Polymarket",
    "title": "LoL: Dplus KIA vs Bilibili Gaming (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-dk-blg-2026-11-03"
+  },
+  {
+   "a": "Karmine Corp",
+   "b": "T1",
+   "pa": 0.185,
+   "source": "Polymarket",
+   "title": "LoL: Karmine Corp vs T1 (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-kc-t1-2026-11-04"
   },
   {
    "a": "Invictus Gaming",
