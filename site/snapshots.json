@@ -1,1 +1,18 @@
-{"matches": []}
+{
+ "matches": [
+  {
+   "a": "Top Esports",
+   "b": "Invictus Gaming",
+   "p": 0.4938,
+   "p_market": 0.455,
+   "p_model": 0.5326,
+   "winner": null,
+   "score": "",
+   "stage": "Čtvrtfinále",
+   "time": "3. 11. 23:00",
+   "utc": "2026-11-03T22:00:00Z",
+   "saved": "2026-11-03T19:29+00:00"
+  }
+ ],
+ "updated": "2026-11-03T19:29+00:00"
+}
