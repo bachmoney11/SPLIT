@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T18:10+00:00",
+ "updated": "2026-11-03T13:00+00:00",
  "matches": [
   {
    "a": "Top Esports",
@@ -36,7 +36,7 @@
   {
    "a": "Invictus Gaming",
    "b": "Top Esports",
-   "pa": 0.5404,
+   "pa": 0.535,
    "source": "Kalshi",
    "title": "Invictus Gaming vs. Top Esports",
    "url": "https://kalshi.com/markets/kxlolgame"
@@ -44,7 +44,7 @@
   {
    "a": "LYON (2024 American Team)",
    "b": "Gen.G",
-   "pa": 0.085,
+   "pa": 0.0941,
    "source": "Kalshi",
    "title": "LYON vs. Gen.G",
    "url": "https://kalshi.com/markets/kxlolgame"
@@ -52,7 +52,7 @@
   {
    "a": "Bilibili Gaming",
    "b": "Dplus Kia",
-   "pa": 0.5891,
+   "pa": 0.5808,
    "source": "Kalshi",
    "title": "Bilibili Gaming vs. Dplus KIA",
    "url": "https://kalshi.com/markets/kxlolgame"
