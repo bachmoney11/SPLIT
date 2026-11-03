@@ -1,0 +1,55 @@
+# Minutová data profi her (Leaguepedia "V5 data") + přeučení modelu "Během hry" -> site/ingame.json.
+# Leaguepedia tyto stránky limituje (~150–180 her, pak "ratelimited"), proto malé dávky a tvrdý časový strop.
+name: Minutová data
+on:
+  schedule:
+    - cron: "11 */6 * * *"      # 4× denně
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-write
+  cancel-in-progress: false
+
+jobs:
+  timelines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Stáhnout dávku her
+        run: |
+          mkdir -p data/tl
+          cp seed/v5_titles.json data/v5_titles.json
+          [ -n "$(ls -A data/tl)" ] || tar xzf seed/tl.tar.gz -C data
+          before=$(ls data/tl | wc -l)
+          # při rate-limitu skript čeká a zkouší znovu -> po 25 min ho ukončíme, hotové hry zůstanou
+          timeout 25m python timelines.py 700 2>&1 | tail -n 20 || true
+          echo "her: $before -> $(ls data/tl | wc -l)"
+      - name: Přeučit model během hry
+        run: |
+          python ingame.py | tail -n 5
+          cp data/ingame_model.json site/ingame.json
+      - name: Uložit
+        run: |
+          git config user.name "split-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tl site/ingame.json
+          git diff --cached --quiet && exit 0
+          git commit -m "minutová data $(date -u +%F\ %H:%M)"
+          git pull --rebase origin main && git push origin HEAD:main
+
+  publish:
+    needs: timelines
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

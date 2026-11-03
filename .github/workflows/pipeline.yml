@@ -1,0 +1,95 @@
+# Ranní obnova: data z Leaguepedie, model, simulace, stránka. S cache ~5–10 min, bez cache (první běh) ~40 min.
+name: Ranní obnova
+on:
+  schedule:
+    - cron: "17 9 * * *"        # 10:17 Praha v zimě (9:17 UTC), každý den
+  workflow_dispatch:
+    inputs:
+      current:
+        description: "Prefix aktuálního turnaje (jeho stránky se stáhnou znovu)"
+        default: "2026_Season_World_Championship"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-write
+  cancel-in-progress: false
+
+env:
+  # stránky probíhajícího turnaje se z cache mažou, aby se stáhly nové výsledky; po Worlds změnit (např. "LCK_2027")
+  CURRENT: ${{ inputs.current || '2026_Season_World_Championship' }}
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      # data/html (~420 MB stažených stránek) a mezivýsledky žijí v cache GitHubu (zdarma do 10 GB;
+      # smaže se po 7 dnech bez použití -> další běh vše stáhne znovu, jen to trvá déle)
+      - name: Obnovit cache dat
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/html
+            data/games.csv
+            data/market_hist.json
+            data/icons.json
+          key: lolpred-data-${{ github.run_id }}
+          restore-keys: lolpred-data-
+
+      - name: Připravit vstupy
+        run: |
+          mkdir -p data/html data/tl
+          cp seed/v5_titles.json data/v5_titles.json
+          [ -n "$(ls -A data/tl)" ] || tar xzf seed/tl.tar.gz -C data
+          [ -f site/odds.json ] && cp site/odds.json data/odds.json || echo '{"updated":null,"matches":[]}' > data/odds.json
+          [ -f site/ingame.json ] && cp site/ingame.json data/ingame_model.json || true
+          rm -f data/html/*"${CURRENT}"* data/html/FULL_*"${CURRENT}"*
+          echo "stránek v cache: $(ls data/html | wc -l)"
+
+      - name: Pipeline
+        run: |
+          start=$(date +%s)
+          bash pipeline.sh 2>&1 | while IFS= read -r l; do echo "[$(( $(date +%s) - start ))s] $l"; done
+          exit ${PIPESTATUS[0]}
+
+      - name: Statická stránka a výsledky tipů
+        run: |
+          python build_standalone.py
+          python snapshot.py results
+
+      - name: Uložit cache dat
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/html
+            data/games.csv
+            data/market_hist.json
+            data/icons.json
+          key: lolpred-data-${{ github.run_id }}
+
+      - name: Uložit
+        run: |
+          git config user.name "split-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site data/tl
+          git diff --cached --quiet && exit 0
+          git commit -m "obnova $(date -u +%F)"
+          git pull --rebase origin main && git push origin HEAD:main
+
+  publish:
+    needs: pipeline
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
