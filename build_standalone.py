@@ -3,7 +3,7 @@
 Šablonu page_template.html NEMĚNÍ – do výstupu jen vloží shim, který nahradí Claude runtime (cu):
   db     -> fetch odds.json / ingame.json / snapshots.json ze stejné složky, obnova každých 5 min
   mcp    -> živý draft přímo z Leaguepedie (api.php ... &origin=*), odpověď ve tvaru, který čte poll()
-  sample -> nahrazeno živými daty z lolesports (live_feed.js): picky při načtení hry, stav hry každých 10 s
+  sample -> nedostupné, čtení přenosu se vypne s hláškou
 Spuštění z kořene repozitáře:  python3 build_standalone.py
 Data: data/results.json + data/app_data.json (po pipeline), jinak záložně data/page_data.json.
 """
@@ -26,6 +26,8 @@ def page_data():
     keep.update(a)
     if os.path.exists(P('data/icons.json')): keep['icons'] = json.load(open(P('data/icons.json')))
     if os.path.exists(P('data/market_eval.json')): keep['market'] = json.load(open(P('data/market_eval.json')))
+    for f in ('data/items.json', 'seed/items.json'):   # sprite předmětů (items.py); v repozitáři leží v seed/
+        if os.path.exists(P(f)): keep['items'] = json.load(open(P(f))); break
     return keep
 
 
@@ -73,9 +75,17 @@ SHIM = r"""<script>
 </script>
 """
 
-# po hlavním skriptu: místo čtení přenosu (sample, jen v Claude) živá data z lolesports -> live_feed.js
-AFTER = '<script>\n' + open(os.path.join(HERE, 'live_feed.js'), encoding='utf-8').read() + '</script>\n'
-
+# po hlavním skriptu: čtení přenosu (sample) neexistuje -> tichá vypínka s hláškou, nepřepisuje stav Leaguepedie
+AFTER = r"""<script>
+(() => {
+  const note = () => { let n = document.getElementById('sa-bc-note'); const st = document.getElementById('au-status');
+    if (!n && st) { n = document.createElement('p'); n.id = 'sa-bc-note'; n.className = 'au-st';
+      n.textContent = 'Čtení přenosu (pick po picku a stav hry) je dostupné jen v aplikaci Claude. Tady se draft načítá z Leaguepedie po hrách, stav hry zadáš ručně.';
+      st.after(n); } };
+  window.bcPoll = async () => { try { stopBC(); } catch (e) {} note(); };
+})();
+</script>
+"""
 
 CU_RE = re.compile(r"const cu = n => \(window\.claude && window\.claude\.use\)[^\n;]*;")
 
@@ -87,7 +97,10 @@ def main():
     if n != 1: sys.exit('definice cu() v šabloně nenalezena – uprav CU_RE')
     i = html.find('<script>'); j = html.rfind('</script>') + len('</script>')
     if i < 0 or j < len('</script>'): sys.exit('hlavní <script> nenalezen')
-    html = html[:i] + SHIM + html[i:j] + AFTER + html[j:]
+    lf = ''   # živý feed lolesports (window + details -> in-game + scoreboard); přepisuje bcPoll z AFTER, proto až za ním
+    for c in (P('live_feed.js'), P('deploy/live_feed.js')):
+        if os.path.exists(c): lf = '<script>\n' + open(c, encoding='utf-8').read() + '\n</script>\n'; break
+    html = html[:i] + SHIM + html[i:j] + AFTER + lf + html[j:]
     d = page_data()
     html = html.replace('__DATA__', json.dumps(d, ensure_ascii=False, separators=(',', ':')))
     if '<!doctype' not in html[:200].lower():   # šablona je fragment (skeleton dodává Claude) -> doplnit pro statický hosting

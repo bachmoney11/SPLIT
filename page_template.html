@@ -464,6 +464,67 @@ svg.flow .rb{transition:fill-opacity .25s}
 footer{color:var(--faint);font-size:12px}
 footer a{color:var(--acc2)}
 @media (prefers-reduced-motion:no-preference){.bar i,.bar2 i{transition:width .35s ease}.btn,.sg{transition:background .15s}}
+/* scoreboard (in-game, plní live_feed.js přes renderScoreboard) – strana = pozice vlevo/vpravo, oranžová = vedoucí tým */
+.sb{display:flex;flex-direction:column;gap:12px;font-variant-numeric:tabular-nums;min-width:0}
+.sb[hidden]{display:none}
+.sb svg{width:15px;height:15px;fill:none;stroke:var(--text-2);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sb-head{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.sb-t{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sb-t.r{align-items:flex-end;text-align:right}
+.sb-code{font-family:var(--f-fig);font-weight:850;font-stretch:120%;font-size:22px;line-height:1;letter-spacing:.02em;color:var(--ink2)}
+.sb-t.lead .sb-code{color:var(--fav-ink)}
+.sb-st{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--ink2)}
+.sb-t.r .sb-st{justify-content:flex-end}
+.sb-st span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.sb-st b{font-weight:600;color:var(--ink)}
+.sb-dr{display:inline-flex;gap:2px}
+.sb-dr i{width:15px;height:15px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:8.5px;font-weight:700;background:rgba(232,217,200,.14);color:var(--ink2)}
+.sb-dr i.el{background:var(--acc-soft);color:var(--fav-ink)}
+.sb-mid{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.sb-min{font-size:12px;color:var(--text-2);letter-spacing:.04em}
+.sb-k{font-family:var(--f-fig);font-weight:800;font-stretch:80%;font-size:var(--n-title);line-height:1;white-space:nowrap;color:var(--ink2)}
+.sb-k .x{font-size:.5em;color:var(--faint);vertical-align:.35em;margin:0 .25em}
+.sb-k .lead{color:var(--fav-ink)}
+.sb-gd{font-size:12.5px;font-weight:600;color:var(--fav-ink);white-space:nowrap}
+.sb-gd.eq{color:var(--text-2);font-weight:500}
+.sb-rows{display:flex;flex-direction:column}
+.sb-row{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.sb-row:last-child{border-bottom:0}
+.sb-role{text-align:center;font-size:11px;letter-spacing:.08em;font-weight:600;color:var(--faint)}
+.sp{display:grid;grid-template-columns:34px minmax(0,1fr) 58px 34px 42px auto;grid-template-areas:"ch nm kda cs g it";gap:8px;align-items:center;min-width:0;font-size:13px}
+.sp.r{grid-template-columns:auto 42px 34px 58px minmax(0,1fr) 34px;grid-template-areas:"it g cs kda nm ch";text-align:right}
+.sp-st{display:contents}
+.sp-ch{grid-area:ch;position:relative;width:32px;height:32px}
+.sp-ch .icon{width:32px;height:32px}
+.sp-lv{position:absolute;right:-4px;bottom:-4px;min-width:15px;height:15px;padding:0 2px;border-radius:4px;background:#1f1510;color:var(--ink);font-size:10px;font-weight:700;line-height:15px;text-align:center}
+.sp-nm{grid-area:nm;display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.sp-nm b{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-nm small{font-size:11.5px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-nm .tg{display:none}
+.sp-kda{grid-area:kda;white-space:nowrap;color:var(--ink)}
+.sp-kda i{font-style:normal;color:var(--faint)}
+.sp-cs{grid-area:cs;white-space:nowrap;color:var(--ink2)}
+.sp-g{grid-area:g;white-space:nowrap;color:var(--ink2)}
+.sp-it{grid-area:it;display:flex;gap:2px}
+.sp.r .sp-it{flex-direction:row-reverse}
+.it{width:22px;height:22px;border-radius:4px;flex:none;background:rgba(232,217,200,.07);box-shadow:inset 0 0 0 1px rgba(232,217,200,.1);background-repeat:no-repeat;display:inline-grid;place-items:center;font-size:8px;font-weight:700;color:var(--text-2);overflow:hidden;letter-spacing:-.02em}
+.it.sp2{box-shadow:none}
+.sb-src{font-size:11.5px;color:var(--faint)}
+details.ig-man>summary{margin-bottom:0}
+details.ig-man[open]>summary{margin-bottom:10px}
+@media (max-width:1100px){.sp,.sp.r{grid-template-columns:32px minmax(0,1fr) auto;grid-template-areas:"ch nm it" "ch st it";row-gap:2px;column-gap:8px}
+  .sp.r{grid-template-columns:auto minmax(0,1fr) 32px;grid-template-areas:"it nm ch" "it st ch"}
+  .sp-st{display:flex;grid-area:st;gap:8px;font-size:12px;min-width:0}.sp.r .sp-st{justify-content:flex-end}
+  .sp-nm small{display:none}.it{width:18px;height:18px}}
+@media (max-width:700px){
+  .sb-head{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px}
+  .sb-code{font-size:18px}.sb-st{font-size:12px;gap:3px 8px}
+  .sb-row{grid-template-columns:1fr;gap:4px;padding:8px 0}
+  .sb-role{text-align:left;order:-1}
+  .sp.r{grid-template-columns:32px minmax(0,1fr) auto;grid-template-areas:"ch nm it" "ch st it";text-align:left}
+  .sp.r .sp-st{justify-content:flex-start}.sp.r .sp-it{flex-direction:row}
+  .sp-nm .tg{display:inline;font-style:normal;font-size:10.5px;font-weight:700;color:var(--faint);margin-right:5px;letter-spacing:.04em}
+  .sp.lead .sp-nm .tg{color:var(--fav-ink)}}
 </style>
 
 <div class="wrap">
@@ -561,7 +622,10 @@ footer a{color:var(--acc2)}
         </div>
         <label class="f" for="ig-m">Minuta hry <b id="ig-mv"></b><input type="range" id="ig-m" min="3" max="40" value="15"></label>
       </div>
+      <div class="sb" id="scoreboard" hidden aria-label="Scoreboard hry"></div>
+      <details class="info ig-man" id="ig-man" open><summary>Zadat ručně</summary>
       <div class="ig-ctl" id="ig-ctl" aria-label="Stav hry z pohledu modré strany"></div>
+      </details>
       <div class="ig-in" hidden>
         <label class="f" for="ig-g">Zlato (tis.)<input type="number" id="ig-g" step="0.5" value="0"></label>
         <label class="f" for="ig-k">Killy<input type="number" id="ig-k" value="0"></label>
@@ -970,6 +1034,53 @@ if (IC) document.documentElement.style.setProperty('--sprite', `url(${IC.sprite}
 const CH = L.champs, CN = Object.keys(CH).sort();
 $('champs').innerHTML = CN.map(c => `<option value="${esc(c)}">`).join('');
 const ROLES = ['TOP', 'JNG', 'MID', 'BOT', 'SUP'];
+
+// ---------- scoreboard (živá data; v Claude zatím bez dat -> skrytý) ----------
+// s = {minute, blue:{team, gold, kills, towers, dragons:[], barons, inhib, players:[{name, champ, role, k,d,a, cs, gold, lvl, items:[]}]}, red:{…}}
+const IT = D.items || null;
+if (IT) document.documentElement.style.setProperty('--isprite', `url(${IT.sprite})`);
+const TRINKET = new Set([3340, 3363, 3364, 3330, 3513]);
+const itemIcon = (id, px = 22) => { if (!id) return `<span class="it" aria-hidden="true"></span>`;
+  const k = String(id), nm = IT && IT.names && IT.names[k], i = IT && IT.idx[k];
+  if (i == null) { const ab = nm ? nm.replace(/[^A-Za-z ]/g, '').split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 3) : k.slice(0, 4);
+    return `<span class="it" title="${esc(nm || k)}">${esc(ab)}</span>`; }
+  const x = (i % IT.cols) * px, y = Math.floor(i / IT.cols) * px;
+  return `<span class="it sp2" title="${esc(nm || k)}" style="background-image:var(--isprite);background-size:${IT.cols * px}px auto;background-position:-${x}px -${y}px"></span>`; };
+const SB_ROLE = { top: 0, jungle: 1, jng: 1, mid: 2, bottom: 3, bot: 3, adc: 3, support: 4, sup: 4 };
+const SB_DR = { mountain: 'M', infernal: 'I', ocean: 'O', cloud: 'C', hextech: 'H', chemtech: 'Ch', elder: 'E' };
+const SB_DRN = { mountain: 'horský', infernal: 'ohnivý', ocean: 'oceánský', cloud: 'větrný', hextech: 'hextech', chemtech: 'chemtech', elder: 'Elder' };
+const kfmt = v => v == null ? '–' : (v / 1000).toFixed(1).replace('.', ',') + 'k';
+const SB = { auto: false };
+function renderScoreboard(s) {
+  const box = $('scoreboard'); if (!box) return;
+  if (!s || !s.blue || !s.red) { box.hidden = true; box.innerHTML = ''; return; }
+  const B = s.blue, R = s.red, n = v => +v || 0, gd = n(B.gold) - n(R.gold), lead = Math.abs(gd) < 500 ? null : gd > 0 ? 'b' : 'r';
+  const code = t => esc(t.team || '?');
+  const stats = t => `<div class="sb-st"><span title="zlato">${ico('gold')}<b>${kfmt(t.gold)}</b></span><span title="věže">${ico('tower')}<b>${n(t.towers)}</b></span>` +
+    `<span title="draci">${ico('drake')}${(t.dragons || []).length ? `<span class="sb-dr">${t.dragons.map(d => `<i class="${d === 'elder' ? 'el' : ''}" title="${esc(SB_DRN[d] || d)}">${esc(SB_DR[d] || String(d).slice(0, 1).toUpperCase())}</i>`).join('')}</span>` : '<b>0</b>'}</span>` +
+    `<span title="baroni">${ico('baron')}<b>${n(t.barons)}</b></span><span title="zničené inhibitory">${ico('inhib')}<b>${n(t.inhib)}</b></span></div>`;
+  const mm = s.minute != null ? `${Math.floor(s.minute)}:${String(Math.floor((s.minute % 1) * 60)).padStart(2, '0')}` : '';
+  const head = `<div class="sb-head">
+    <div class="sb-t b${lead === 'b' ? ' lead' : ''}"><b class="sb-code">${code(B)}</b>${stats(B)}</div>
+    <div class="sb-mid"><span class="sb-min">${mm}</span><span class="sb-k" aria-label="killy"><span class="${lead === 'b' ? 'lead' : ''}">${n(B.kills)}</span><span class="x">${ico('kill')}</span><span class="${lead === 'r' ? 'lead' : ''}">${n(R.kills)}</span></span>
+      <span class="sb-gd${lead ? '' : ' eq'}">${lead ? `${lead === 'b' ? '◀ ' : ''}+${kfmt(Math.abs(gd))} zlata${lead === 'r' ? ' ▶' : ''}` : 'zlato vyrovnané'}</span></div>
+    <div class="sb-t r${lead === 'r' ? ' lead' : ''}"><b class="sb-code">${code(R)}</b>${stats(R)}</div></div>`;
+  const byRole = t => { const out = [null, null, null, null, null], rest = [];
+    (t.players || []).forEach(p => { const r = typeof p.role === 'number' ? p.role : SB_ROLE[String(p.role || '').toLowerCase()]; if (r != null && !out[r]) out[r] = p; else rest.push(p); });
+    return out.map(p => p || rest.shift() || null); };
+  const pl = (p, side, t) => { if (!p) return `<div class="sp ${side}"></div>`;
+    const it = (p.items || []).filter(i => !TRINKET.has(+i)).slice(0, 6); while (it.length < 6) it.push(0);
+    return `<div class="sp ${side}${lead === side ? ' lead' : ''}"><span class="sp-ch">${icon(p.champ, 32)}<i class="sp-lv" title="úroveň">${n(p.lvl) || ''}</i></span>
+      <span class="sp-nm"><b><em class="tg">${code(t)}</em>${esc(p.name || '?')}</b><small>${esc(p.champ || '')}</small></span>
+      <span class="sp-st"><span class="sp-kda" title="K/D/A">${n(p.k)}<i>/</i>${n(p.d)}<i>/</i>${n(p.a)}</span><span class="sp-cs" title="CS">${n(p.cs)}</span><span class="sp-g" title="zlato">${kfmt(p.gold)}</span></span>
+      <span class="sp-it">${it.map(i => itemIcon(i)).join('')}</span></div>`; };
+  const bp = byRole(B), rp = byRole(R);
+  const rows = ROLES.map((r, i) => `<div class="sb-row">${pl(bp[i], 'b', B)}<span class="sb-role">${r}</span>${pl(rp[i], 'r', R)}</div>`).join('');
+  box.innerHTML = head + `<div class="sb-rows">${rows}</div>` + (s.src ? `<p class="sb-src">${esc(s.src)}</p>` : '');
+  box.hidden = false;
+  if (!SB.auto) { SB.auto = true; const m = $('ig-man'); if (m) m.open = false; }   // feed plní čipy sám -> ruční zadání sbalit (jen poprvé)
+}
+window.renderScoreboard = renderScoreboard;
 // pořadí: F = tým s prvním pickem, S = druhý
 const ORDER = [['F', 'ban'], ['S', 'ban'], ['F', 'ban'], ['S', 'ban'], ['F', 'ban'], ['S', 'ban'],
   ['F', 'pick'], ['S', 'pick'], ['S', 'pick'], ['F', 'pick'], ['F', 'pick'], ['S', 'pick'],
@@ -1046,8 +1157,8 @@ function _liveUpdate() {
     $(p + '-picks').innerHTML = ORDER.map(([fs, kind], k) => sideOf(fs) === side && kind === 'pick' ? slot(k, 'pick', side) : '').join(''); }
   const pr = drawProb(st);
   setMeter($('lpa'), $('lpb'), $('lsa'), T[b].short, T[r].short, pr.p);
-  { const mm = D.r5.find(m => new Set([m.a, m.b, b, r]).size === 2), ser = finalP({ a: b, b: r, bo: (mm && mm.bo) || 5 }).f;
-    $('l-cap').innerHTML = `Šance na výhru hry ${$('ld-game').value} · <b>${T[b].short}</b> na modré straně <span class="ser">· série Bo${(mm && mm.bo) || 5} před zápasem: ${T[ser >= .5 ? b : r].short} ${pct(Math.max(ser, 1 - ser)).replace(' ', ' ')}</span>`; }
+  { const mm = D.r5.find(m => new Set([m.a, m.b, b, r]).size === 2), fp = finalP({ a: b, b: r, bo: (mm && mm.bo) || 5 }), ser = fp.f;
+    $('l-cap').innerHTML = `Šance na výhru hry ${$('ld-game').value} · <b>${T[b].short}</b> na modré straně <span class="ser">· série Bo${(mm && mm.bo) || 5} před zápasem: ${T[ser >= .5 ? b : r].short} ${pct(Math.max(ser, 1 - ser)).replace(' ', ' ')} (${fp.mk != null ? 'model + trh' : 'jen model'})</span>`; }
   const d = pr.p - pr.base;
   $('l-note').textContent = `Před draftem ${T[b].short} ${pct(pr.base)}` + (st.blue.picks.length + st.red.picks.length ? ` · draft ${d >= 0 ? '+' : '−'}${pb(Math.abs(d))} pro ${T[b].short}` : '');
   drawDraftChart(hist, b, r); drawRail(i);
@@ -1328,7 +1439,7 @@ $('au-on').onclick = () => { if (AU.timer) { stopAuto(); return; } AU.follow = t
 let ODDS = null;
 async function startOdds() {
   const db = await cu('db'); if (!db) return;
-  db.doc('live/odds').onSnapshot(s => { ODDS = s.data() || null; renderToday(); runSim(); }, () => {});
+  db.doc('live/odds').onSnapshot(s => { ODDS = s.data() || null; renderToday(); runSim(); liveUpdate(); }, () => {});   // i draft: série = finální odhad (model + trh), stejně jako v Zápasech
   db.doc('live/snapshots').onSnapshot(s => { SNAP = s.data() || null; renderTR(); }, () => {});
   db.doc('live/ingame').onSnapshot(s => { const d = s.data(); if (d && d.feats && d.coef) { Object.assign(IG, d); const el = document.querySelector('#ingame .sub'); if (el) el.textContent = `zadej stav hry z přenosu · model ze ${d.n_games} profi her`; ingame(); } }, () => {});
 }
