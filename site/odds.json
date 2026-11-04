@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-04T15:24+00:00",
+ "updated": "2026-11-04T17:27+00:00",
  "matches": [
   {
    "a": "Gen.G",
    "b": "LYON (2024 American Team)",
-   "pa": 0.915,
+   "pa": 0.925,
    "source": "Polymarket",
    "title": "LoL: Gen.G vs LYON (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-gen-ly-2026-11-05"
@@ -28,7 +28,7 @@
   {
    "a": "LYON (2024 American Team)",
    "b": "Gen.G",
-   "pa": 0.095,
+   "pa": 0.0859,
    "source": "Kalshi",
    "title": "LYON vs. Gen.G",
    "url": "https://kalshi.com/markets/kxlolgame"
@@ -36,7 +36,7 @@
   {
    "a": "Bilibili Gaming",
    "b": "Dplus Kia",
-   "pa": 0.5808,
+   "pa": 0.585,
    "source": "Kalshi",
    "title": "Bilibili Gaming vs. Dplus KIA",
    "url": "https://kalshi.com/markets/kxlolgame"
