@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T09:28+00:00",
+ "updated": "2026-11-04T11:32+00:00",
  "matches": [
   {
    "a": "Gen.G",
@@ -20,7 +20,7 @@
   {
    "a": "Karmine Corp",
    "b": "T1",
-   "pa": 0.185,
+   "pa": 0.175,
    "source": "Polymarket",
    "title": "LoL: Karmine Corp vs T1 (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-kc-t1-2026-11-04"
