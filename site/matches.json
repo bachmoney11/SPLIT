@@ -12,7 +12,7 @@
    "s1": "",
    "s2": "",
    "winner": null,
-   "p": 0.4661
+   "p": 0.4923
   },
   {
    "stage": "Čtvrtfinále",
@@ -24,7 +24,7 @@
    "s1": "",
    "s2": "",
    "winner": null,
-   "p": 0.2142
+   "p": 0.1969
   },
   {
    "stage": "Čtvrtfinále",
@@ -33,10 +33,10 @@
    "bo": 5,
    "utc": "2026-11-04T22:00:00Z",
    "time": "4. 11. 23:00",
-   "s1": "",
-   "s2": "",
-   "winner": null,
-   "p": 0.88
+   "s1": "3",
+   "s2": "0",
+   "winner": "Gen.G",
+   "p": 0.9063
   },
   {
    "stage": "Čtvrtfinále",
@@ -48,7 +48,19 @@
    "s1": "1",
    "s2": "3",
    "winner": "Invictus Gaming",
-   "p": 0.4902
+   "p": 0.4903
+  },
+  {
+   "stage": "Semifinále",
+   "a": "Invictus Gaming",
+   "b": "Gen.G",
+   "bo": 5,
+   "utc": "2026-11-07T22:00:00Z",
+   "time": "7. 11. 23:00",
+   "s1": "",
+   "s2": "",
+   "winner": null,
+   "p": 0.2414
   }
  ]
 }
