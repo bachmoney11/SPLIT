@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T09:32+00:00",
+ "updated": "2026-11-05T11:28+00:00",
  "matches": [
   {
    "a": "Dplus Kia",
@@ -28,7 +28,7 @@
   {
    "a": "Bilibili Gaming",
    "b": "Dplus Kia",
-   "pa": 0.585,
+   "pa": 0.5891,
    "source": "Kalshi",
    "title": "Bilibili Gaming vs. Dplus KIA",
    "url": "https://kalshi.com/markets/kxlolgame"
@@ -44,7 +44,7 @@
   {
    "a": "Gen.G",
    "b": "Invictus Gaming",
-   "pa": 0.804,
+   "pa": 0.803,
    "source": "Kalshi",
    "title": "Gen.G vs. Invictus Gaming",
    "url": "https://kalshi.com/markets/kxlolgame"
