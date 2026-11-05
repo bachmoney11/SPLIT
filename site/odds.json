@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-05T17:34+00:00",
+ "updated": "2026-11-05T19:29+00:00",
  "matches": [
   {
    "a": "Dplus Kia",
    "b": "Bilibili Gaming",
-   "pa": 0.405,
+   "pa": 0.415,
    "source": "Polymarket",
    "title": "LoL: Dplus KIA vs Bilibili Gaming (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-dk-blg-2026-11-03"
@@ -28,7 +28,7 @@
   {
    "a": "Bilibili Gaming",
    "b": "Dplus Kia",
-   "pa": 0.595,
+   "pa": 0.585,
    "source": "Kalshi",
    "title": "Bilibili Gaming vs. Dplus KIA",
    "url": "https://kalshi.com/markets/kxlolgame"
