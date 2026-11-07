@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-07T21:12+00:00",
+ "updated": "2026-11-07T23:09+00:00",
  "matches": [
   {
    "a": "Invictus Gaming",
    "b": "Gen.G",
-   "pa": 0.205,
+   "pa": 0.095,
    "source": "Polymarket",
    "title": "LoL: Invictus Gaming vs Gen.G (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-ig1-gen-2026-11-07"
@@ -20,7 +20,7 @@
   {
    "a": "Gen.G",
    "b": "Invictus Gaming",
-   "pa": 0.795,
+   "pa": 0.905,
    "source": "Kalshi",
    "title": "Gen.G vs. Invictus Gaming",
    "url": "https://kalshi.com/markets/kxlolgame"
