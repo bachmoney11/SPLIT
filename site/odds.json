@@ -1,10 +1,10 @@
 {
- "updated": "2026-11-06T23:14+00:00",
+ "updated": "2026-11-07T01:36+00:00",
  "matches": [
   {
    "a": "Karmine Corp",
    "b": "T1",
-   "pa": 0.085,
+   "pa": 0.051,
    "source": "Polymarket",
    "title": "LoL: Karmine Corp vs T1 (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-kc-t1-2026-11-04"
@@ -20,7 +20,7 @@
   {
    "a": "T1",
    "b": "Karmine Corp",
-   "pa": 0.915,
+   "pa": 0.9598,
    "source": "Kalshi",
    "title": "T1 vs. Karmine Corp",
    "url": "https://kalshi.com/markets/kxlolgame"
