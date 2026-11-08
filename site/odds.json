@@ -1,14 +1,6 @@
 {
- "updated": "2026-11-07T23:09+00:00",
+ "updated": "2026-11-08T01:43+00:00",
  "matches": [
-  {
-   "a": "Invictus Gaming",
-   "b": "Gen.G",
-   "pa": 0.095,
-   "source": "Polymarket",
-   "title": "LoL: Invictus Gaming vs Gen.G (BO5) - Worlds Playoffs",
-   "url": "https://polymarket.com/event/lol-ig1-gen-2026-11-07"
-  },
   {
    "a": "Bilibili Gaming",
    "b": "T1",
@@ -16,14 +8,6 @@
    "source": "Polymarket",
    "title": "LoL: Bilibili Gaming vs T1 (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-blg-t1-2026-11-08"
-  },
-  {
-   "a": "Gen.G",
-   "b": "Invictus Gaming",
-   "pa": 0.905,
-   "source": "Kalshi",
-   "title": "Gen.G vs. Invictus Gaming",
-   "url": "https://kalshi.com/markets/kxlolgame"
   },
   {
    "a": "T1",
