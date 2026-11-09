@@ -1,21 +1,13 @@
 {
- "updated": "2026-11-08T23:10+00:00",
+ "updated": "2026-11-09T01:47+00:00",
  "matches": [
   {
    "a": "Bilibili Gaming",
    "b": "T1",
-   "pa": 0.735,
+   "pa": 0.9995,
    "source": "Polymarket",
    "title": "LoL: Bilibili Gaming vs T1 (BO5) - Worlds Playoffs",
    "url": "https://polymarket.com/event/lol-blg-t1-2026-11-08"
-  },
-  {
-   "a": "T1",
-   "b": "Bilibili Gaming",
-   "pa": 0.255,
-   "source": "Kalshi",
-   "title": "T1 vs. Bilibili Gaming",
-   "url": "https://kalshi.com/markets/kxlolgame"
   }
  ]
 }
