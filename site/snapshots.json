@@ -58,8 +58,8 @@
    "p": 0.2742,
    "p_market": 0.205,
    "p_model": 0.3435,
-   "winner": null,
-   "score": "",
+   "winner": "Gen.G",
+   "score": "0-3",
    "stage": "Semifinále",
    "time": "7. 11. 23:00",
    "utc": "2026-11-07T22:00:00Z",
@@ -71,13 +71,13 @@
    "p": 0.5911,
    "p_market": 0.565,
    "p_model": 0.6172,
-   "winner": null,
-   "score": "",
+   "winner": "Bilibili Gaming",
+   "score": "3-1",
    "stage": "Semifinále",
    "time": "8. 11. 23:00",
    "utc": "2026-11-08T22:00:00Z",
    "saved": "2026-11-08T19:19+00:00"
   }
  ],
- "updated": "2026-11-08T19:19+00:00"
+ "updated": "2026-11-09T10:17+00:00"
 }
