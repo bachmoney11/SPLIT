@@ -1,13 +1,21 @@
 {
- "updated": "2026-11-09T01:47+00:00",
+ "updated": "2026-11-09T03:22+00:00",
  "matches": [
   {
    "a": "Bilibili Gaming",
-   "b": "T1",
-   "pa": 0.9995,
+   "b": "Gen.G",
+   "pa": 0.375,
    "source": "Polymarket",
-   "title": "LoL: Bilibili Gaming vs T1 (BO5) - Worlds Playoffs",
-   "url": "https://polymarket.com/event/lol-blg-t1-2026-11-08"
+   "title": "LoL: Bilibili Gaming vs Gen.G (BO5) - Worlds Playoffs",
+   "url": "https://polymarket.com/event/lol-blg-gen-2026-11-14"
+  },
+  {
+   "a": "Gen.G",
+   "b": "Bilibili Gaming",
+   "pa": 0.6188,
+   "source": "Kalshi",
+   "title": "Gen.G vs. Bilibili Gaming",
+   "url": "https://kalshi.com/markets/kxlolgame"
   }
  ]
 }
