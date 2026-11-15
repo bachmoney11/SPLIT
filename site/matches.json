@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09",
+ "updated": "2026-11-14",
  "shrink": 0.84,
  "matches": [
   {
@@ -12,7 +12,7 @@
    "s1": "0",
    "s2": "3",
    "winner": "Bilibili Gaming",
-   "p": 0.3363
+   "p": 0.2033
   },
   {
    "stage": "Čtvrtfinále",
@@ -24,7 +24,7 @@
    "s1": "1",
    "s2": "3",
    "winner": "T1",
-   "p": 0.2164
+   "p": 0.2701
   },
   {
    "stage": "Čtvrtfinále",
@@ -36,7 +36,7 @@
    "s1": "3",
    "s2": "0",
    "winner": "Gen.G",
-   "p": 0.8986
+   "p": 0.8567
   },
   {
    "stage": "Čtvrtfinále",
@@ -48,7 +48,7 @@
    "s1": "1",
    "s2": "3",
    "winner": "Invictus Gaming",
-   "p": 0.5051
+   "p": 0.5048
   },
   {
    "stage": "Semifinále",
@@ -60,7 +60,7 @@
    "s1": "0",
    "s2": "3",
    "winner": "Gen.G",
-   "p": 0.2896
+   "p": 0.4472
   },
   {
    "stage": "Semifinále",
@@ -72,7 +72,7 @@
    "s1": "3",
    "s2": "1",
    "winner": "Bilibili Gaming",
-   "p": 0.6178
+   "p": 0.7617
   },
   {
    "stage": "Finále",
@@ -81,10 +81,10 @@
    "bo": 5,
    "utc": "2026-11-14T19:00:00Z",
    "time": "14. 11. 20:00",
-   "s1": "",
-   "s2": "",
-   "winner": null,
-   "p": 0.4388
+   "s1": "3",
+   "s2": "1",
+   "winner": "Bilibili Gaming",
+   "p": 0.6308
   }
  ]
 }
